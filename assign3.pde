@@ -67,7 +67,7 @@ void draw(){
           break;
     case GAME_RUN:
           //---------------- put you code here ----
-
+          
           // -----------------------------------
           break;
     case GAME_WIN:
@@ -85,7 +85,18 @@ void draw(){
 
 int countNeighborBombs(int col,int row){
   // -------------- Requirement B ---------
-  return 0;
+  int count = 0;
+  for (int i = col - 1; i <= col + 1; i++){
+    for (int j = row -1 ; j<= row + 1; j++){
+       if (i >= 0 && i <= nSlot - 1 && 
+           j >= 0 && j <= nSlot - 1){ 
+          if (slot[i][j] == SLOT_BOMB){
+            count++;
+          }
+       }   
+    }
+  }
+  return count;
 }
 
 void setBombs(){
@@ -97,6 +108,20 @@ void setBombs(){
   }
   // -------------- put your code here ---------
   // randomly set bombs
+  for (int n=1; n <= bombCount; n++){
+    while(true){  
+      int rnd = (int) random(totalSlots);
+      int col = rnd / nSlot;
+      int row = rnd % nSlot;
+      if(slot[col][row] == SLOT_OFF){
+        slot[col][row] = SLOT_BOMB; 
+      }
+      if(slot[col][row] != SLOT_BOMB){
+        slot[col][row] = SLOT_SAFE;
+      }   
+      break;
+    }
+  }
 
   // ---------------------------------------
 }
@@ -174,7 +199,17 @@ void mousePressed(){
        mouseY >= iy && mouseY <= iy+sideLength){
     
     // --------------- put you code here -------     
-
+    int col = (mouseX - ix) / SLOT_SIZE;
+    int row = (mouseY - iy) / SLOT_SIZE;
+    if ( slot[col][row] == SLOT_BOMB){
+      showSlot(col,row,SLOT_DEAD);
+      slot[col][row] = SLOT_BOMB;
+      gameState = GAME_LOSE;
+    }
+    if ( slot[col][row] == SLOT_OFF){
+      showSlot(col,row,SLOT_SAFE);
+      clickCount++;
+    }
     // -------------------------
     
   }
