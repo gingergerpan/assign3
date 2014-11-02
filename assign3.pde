@@ -110,9 +110,9 @@ void setBombs(){
   // randomly set bombs
   for (int n=1; n <= bombCount; n++){
     while(true){  
-      int rnd = (int) random(totalSlots);
-      int col = rnd / nSlot;
-      int row = rnd % nSlot;
+      int rnd = int (random(totalSlots));
+      int col = int (rnd / nSlot);
+      int row = int (rnd % nSlot);
       if(slot[col][row] == SLOT_OFF){
         slot[col][row] = SLOT_BOMB; 
       }
@@ -199,8 +199,8 @@ void mousePressed(){
        mouseY >= iy && mouseY <= iy+sideLength){
     
     // --------------- put you code here -------     
-    int col = (mouseX - ix) / SLOT_SIZE;
-    int row = (mouseY - iy) / SLOT_SIZE;
+    int col =int ((mouseX - ix) / SLOT_SIZE);
+    int row =int ((mouseY - iy) / SLOT_SIZE);
     if ( slot[col][row] == SLOT_BOMB){
       showSlot(col,row,SLOT_DEAD);
       slot[col][row] = SLOT_BOMB;
