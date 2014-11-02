@@ -67,7 +67,9 @@ void draw(){
           break;
     case GAME_RUN:
           //---------------- put you code here ----
-          
+          if(clickCount == totalSlots - bombCount){
+          gameState = GAME_WIN;
+          }
           // -----------------------------------
           break;
     case GAME_WIN:
