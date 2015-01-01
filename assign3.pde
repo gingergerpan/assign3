@@ -110,18 +110,15 @@ void setBombs(){
   }
   // -------------- put your code here ---------
   // randomly set bombs
-  for (int n=1; n <= bombCount; n++){
-    while(true){  
-      int rnd = int (random(totalSlots));
-      int col = int (rnd / nSlot);
-      int row = int (rnd % nSlot);
-      if(slot[col][row] == SLOT_OFF){
-        slot[col][row] = SLOT_BOMB; 
-      }
-      if(slot[col][row] != SLOT_BOMB){
-        slot[col][row] = SLOT_SAFE;
-      }   
-      break;
+  int setDownBomb = bombCount;
+
+  while (setDownBomb > 0) {
+
+    int col = (int)random(nSlot);
+    int row = (int)random(nSlot);
+    if (slot[col][row] != SLOT_BOMB) {
+      slot[col][row] = SLOT_BOMB;
+      setDownBomb--;
     }
   }
 
@@ -210,6 +207,7 @@ void mousePressed(){
     }
     if ( slot[col][row] == SLOT_OFF){
       showSlot(col,row,SLOT_SAFE);
+      slot[col][row] = SLOT_SAFE;
       clickCount++;
     }
     // -------------------------
